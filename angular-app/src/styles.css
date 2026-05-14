@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #0d0f14;
+  --bg-secondary: #13161e;
+  --bg-tertiary: #1a1e2a;
+  --bg-card: #1e2230;
+  --bg-input: #242838;
+  --accent-primary: #7c6af7;
+  --accent-secondary: #a78bfa;
+  --accent-glow: rgba(124, 106, 247, 0.25);
+  --text-primary: #f0f2f8;
+  --text-secondary: #8b90a8;
+  --text-muted: #555d7a;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-accent: rgba(124, 106, 247, 0.4);
+  --user-bubble: linear-gradient(135deg, #7c6af7, #a78bfa);
+  --ai-bubble: #1e2230;
+  --error: #ff5757;
+  --success: #4caf91;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-glow: 0 0 40px rgba(124, 106, 247, 0.15);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary); 
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 106, 247, 0.2); 
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 106, 247, 0.45); 
+}
+
+/* Code block scrollbars */
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+pre::-webkit-scrollbar-thumb {
+  background: rgba(124, 106, 247, 0.3);
+}
+
+.animate-in {
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes highlightPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(124, 106, 247, 0.6); outline: 2px solid var(--accent-primary); }
+  50%  { box-shadow: 0 0 0 8px rgba(124, 106, 247, 0); outline-color: transparent; }
+  100% { box-shadow: 0 0 0 0 rgba(124, 106, 247, 0); outline: none; }
+}
+
+.highlight-pulse {
+  animation: highlightPulse 1.6s ease-out;
+  scroll-margin-top: 80px;
+}
+
+/* Markdown styling for Angular component */
+.markdown-body { font-size: 0.92rem; line-height: 1.75; color: var(--text-primary); }
+.markdown-body code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(124,106,247,0.12);
+  color: var(--accent-secondary);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.markdown-body pre {
+  background: #0d0f14;
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+.markdown-body table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.25rem 0;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.markdown-body th, .markdown-body td {
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.markdown-body th:last-child, .markdown-body td:last-child { border-right: none; }
+.markdown-body tr:last-child td { border-bottom: none; }
+.markdown-body th { 
+  background: var(--bg-tertiary); 
+  color: var(--text-primary); 
+  font-weight: 600; 
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.markdown-body tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+.markdown-body blockquote {
+  border-left: 4px solid var(--accent-primary);
+  background: rgba(124, 106, 247, 0.05);
+  padding: 0.8rem 1.2rem;
+  margin: 1.25rem 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}

@@ -1,0 +1,75 @@
+<div class="container">
+  <app-sidebar 
+    [sessions]="sessions" 
+    [activeId]="activeSessionId" 
+    (select)="handleSelectSession($event)"
+    (newChat)="handleNewChat()"
+    (delete)="handleDeleteSession($event)"
+    (rename)="handleRenameSession($event)"
+    (jump)="handleJump($event)"
+  ></app-sidebar>
+
+  <div class="wrapper">
+    <header class="header">
+      <div class="headerLeft">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="14" fill="url(#g1)"/>
+            <path d="M8 14l4 4 8-8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#7c6af7"/>
+                <stop offset="1" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="title">Nexus AI</h1>
+          <p class="subtitle">{{ activeSession?.title || 'New Chat' }} &bull; GPT-4o mini</p>
+        </div>
+      </div>
+      <div class="headerRight">
+        <span class="badge">
+          <span class="dot" [style.background]="loading ? 'var(--error)' : 'var(--success)'"></span>
+          {{ loading ? 'Thinking...' : 'Online' }}
+        </span>
+        @if (messages.length > 0) {
+          <button class="clearBtn" (click)="handleClear()">
+            <lucide-icon name="trash-2" [size]="16"></lucide-icon>
+            Clear
+          </button>
+        }
+      </div>
+    </header>
+
+    <main class="messages" #scrollContainer>
+      @if (messages.length === 0 && !loading) {
+        <div class="empty">
+          <div class="emptyIcon">✦</div>
+          <h2 class="emptyTitle">How can I help you today?</h2>
+          <p class="emptyText">Ask me anything. Press <span class="kbd">⌘ K</span> to focus.</p>
+          <div class="suggestGrid">
+            @for (s of ['Nuxt 3 vs Next.js', 'Vue 3 Composition API', 'SSR vs CSR']; track s) {
+              <button class="suggest" (click)="handleSend(s)">{{ s }}</button>
+            }
+          </div>
+        </div>
+      }
+
+      @for (msg of messages; track msg.id) {
+        <app-message-bubble [message]="msg" [isStreaming]="isMessageStreaming(msg.id)"></app-message-bubble>
+      }
+
+      @if (loading) {
+        <app-skeleton-loader></app-skeleton-loader>
+      }
+
+      @if (error) {
+        <div class="errorBanner">⚠️ {{ error }}</div>
+      }
+    </main>
+
+    <app-chat-input [disabled]="loading" (send)="handleSend($event)"></app-chat-input>
+  </div>
+</div>

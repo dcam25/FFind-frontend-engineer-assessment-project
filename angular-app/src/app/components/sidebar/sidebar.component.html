@@ -1,0 +1,76 @@
+<aside class="sidebar">
+  <div class="sidebarHeader">
+    <button class="newChatBtn" (click)="newChat.emit()">
+      <lucide-icon name="plus" [size]="18"></lucide-icon>
+      <span>New Chat</span>
+    </button>
+  </div>
+
+  <div class="history">
+    <div class="historyHeader">
+      <h3 class="label">History</h3>
+    </div>
+    @if (sessions.length === 0) {
+      <div class="empty">No threads yet</div>
+    } @else {
+      <div class="list">
+        @for (session of sortedSessions(); track session.id) {
+          <div class="item-wrapper">
+            <div 
+              class="item" 
+              [class.active]="activeId === session.id"
+              (click)="select.emit(session.id)"
+            >
+              <div class="itemMain">
+                <button class="expandBtn" (click)="$event.stopPropagation(); toggleSessionOutline(session.id)">
+                  <lucide-icon 
+                    [name]="(expandedSessions[session.id] || (activeId === session.id)) ? 'chevron-down' : 'chevron-right'" 
+                    [size]="14"
+                  ></lucide-icon>
+                </button>
+                <lucide-icon name="message-square" [size]="16" class="msgIcon"></lucide-icon>
+                
+                @if (editingId === session.id) {
+                  <div class="editGroup" (click)="$event.stopPropagation()">
+                    <input 
+                      #renameInput
+                      class="renameInput" 
+                      [value]="editValue" 
+                      (input)="onInputChange(renameInput.value)"
+                      (keydown.enter)="saveEdit()"
+                      (keydown.escape)="editingId = null"
+                      autofocus
+                    />
+                    <button class="iconBtn" (click)="saveEdit()"><lucide-icon name="check" [size]="14"></lucide-icon></button>
+                  </div>
+                } @else {
+                  <span class="itemTitle">{{ session.title }}</span>
+                }
+              </div>
+
+              <div *ngIf="editingId !== session.id" class="actions">
+                <button class="actionBtn" (click)="startEditing($event, session)" title="Rename">
+                  <lucide-icon name="edit-3" [size]="14"></lucide-icon>
+                </button>
+                <button class="actionBtn delete" (click)="handleDelete($event, session.id)" title="Delete">
+                  <lucide-icon name="trash-2" [size]="14"></lucide-icon>
+                </button>
+              </div>
+            </div>
+
+            @if ((expandedSessions[session.id] || (activeId === session.id)) && getPrompts(session).length > 0 && editingId !== session.id) {
+              <div class="outline">
+                @for (prompt of getPrompts(session); track prompt.id) {
+                  <button class="outlineItem" (click)="jump.emit(prompt.id)">
+                    <lucide-icon name="hash" [size]="12"></lucide-icon>
+                    <span class="outlineText">{{ prompt.content }}</span>
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</aside>

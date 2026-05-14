@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #0d0f14;
+  --bg-secondary: #13161e;
+  --bg-tertiary: #1a1e2a;
+  --bg-card: #1e2230;
+  --bg-input: #242838;
+  --accent-primary: #7c6af7;
+  --accent-secondary: #a78bfa;
+  --accent-glow: rgba(124, 106, 247, 0.25);
+  --text-primary: #f0f2f8;
+  --text-secondary: #8b90a8;
+  --text-muted: #555d7a;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-accent: rgba(124, 106, 247, 0.4);
+  --user-bubble: linear-gradient(135deg, #7c6af7, #a78bfa);
+  --ai-bubble: #1e2230;
+  --error: #ff5757;
+  --warning: #f59e0b;
+  --success: #4caf91;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-glow: 0 0 40px rgba(124, 106, 247, 0.15);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes highlightPulse {
+  0% { box-shadow: 0 0 0 0 rgba(124, 106, 247, 0.4); background: rgba(124, 106, 247, 0.1); }
+  50% { box-shadow: 0 0 0 10px rgba(124, 106, 247, 0); background: rgba(124, 106, 247, 0.2); }
+  100% { box-shadow: 0 0 0 0 rgba(124, 106, 247, 0); background: transparent; }
+}
+
+.highlight-pulse {
+  animation: highlightPulse 2s ease-out;
+  border-radius: var(--radius-md);
+}
+
+.animate-in { animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Markdown rendering (using marked) */
+.markdown-body { 
+  font-size: 0.92rem; 
+  line-height: 1.75; 
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+.markdown-body p { margin-bottom: 1rem; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  font-weight: 600; 
+  margin: 1.25rem 0 0.75rem;
+  line-height: 1.25;
+}
+.markdown-body h1 { font-size: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.3rem; }
+.markdown-body h2 { font-size: 1.25rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.3rem; }
+.markdown-body h3 { font-size: 1.1rem; }
+
+.markdown-body ul, .markdown-body ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.markdown-body li { margin: 0.25rem 0; }
+
+.markdown-body code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  background: rgba(124,106,247,0.15);
+  color: var(--accent-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+.markdown-body pre {
+  background: #0d0f14;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.markdown-body pre code {
+  background: transparent;
+  color: #c8d3f5;
+  padding: 0;
+}
+.markdown-body blockquote {
+  border-left: 4px solid var(--accent-primary);
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--text-secondary);
+  background: rgba(124,106,247,0.05);
+  margin: 1.25rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.markdown-body th, .markdown-body td {
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 1rem;
+}
+.markdown-body th { background: var(--bg-tertiary); }

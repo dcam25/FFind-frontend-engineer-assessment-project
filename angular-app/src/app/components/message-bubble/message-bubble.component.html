@@ -1,0 +1,11 @@
+<div [id]="message.id" [class]="'wrapper ' + (isUser ? 'userWrapper' : 'aiWrapper') + ' animate-in'">
+  <div *ngIf="!isUser" class="avatar" aria-hidden="true">✦</div>
+  <div [class]="'bubble ' + (isUser ? 'userBubble' : 'aiBubble') + (message.isError ? ' errorBubble' : '')">
+    <div *ngIf="isUser" class="userText">{{ message.content }}</div>
+    <div *ngIf="!isUser" class="markdown-body" injectCopy [class.is-streaming]="isStreaming">
+      <markdown [data]="isStreaming ? message.content + ' ▋' : message.content"></markdown>
+    </div>
+    <time class="time" [attr.datetime]="message.timestamp | date:'yyyy-MM-ddTHH:mm:ss'">{{ time }}</time>
+  </div>
+  <div *ngIf="isUser" class="avatarUser" aria-hidden="true">U</div>
+</div>

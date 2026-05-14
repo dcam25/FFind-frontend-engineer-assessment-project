@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nexus AI Chat (Angular)</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    /* Critical CSS: prevent FOUC before Angular stylesheet loads */
+    :root {
+      --bg-primary: #0d0f14;
+      --bg-secondary: #13161e;
+      --bg-tertiary: #1a1e2a;
+      --bg-card: #1e2230;
+      --bg-input: #242838;
+      --accent-primary: #7c6af7;
+      --accent-secondary: #a78bfa;
+      --accent-glow: rgba(124, 106, 247, 0.25);
+      --text-primary: #f0f2f8;
+      --text-secondary: #8b90a8;
+      --text-muted: #555d7a;
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-accent: rgba(124, 106, 247, 0.4);
+      --user-bubble: linear-gradient(135deg, #7c6af7, #a78bfa);
+      --ai-bubble: #1e2230;
+      --error: #ff5757;
+      --success: #4caf91;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background-color: #0d0f14;
+      color: #f0f2f8;
+      font-family: Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

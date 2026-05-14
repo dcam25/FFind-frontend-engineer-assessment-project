@@ -1,0 +1,46 @@
+<footer class="footer">
+  <form class="form" (submit)="$event.preventDefault(); submit()" aria-label="Chat input form">
+    <div [class]="'inputBox' + (disabled ? ' inputBoxDisabled' : '')">
+      <textarea
+        #textarea
+        id="chat-input"
+        class="textarea"
+        placeholder="Ask anything… (Shift+Enter for new line)"
+        rows="1"
+        [disabled]="disabled"
+        (input)="handleInput($event)"
+        (keydown)="handleKeyDown($event)"
+        aria-label="Chat message input"
+      ></textarea>
+
+      <span *ngIf="nearLimit" class="charCount" aria-live="polite">
+        {{ MAX_CHARS - content.length }}
+      </span>
+
+      <button
+        type="submit"
+        [class]="'sendBtn ' + (content.trim() && !disabled ? 'sendBtnActive' : 'sendBtnDisabled')"
+        [disabled]="!content.trim() || disabled"
+        aria-label="Send message"
+      >
+        <span *ngIf="disabled" class="spinner" aria-hidden="true"></span>
+        <lucide-icon *ngIf="!disabled" name="send" [size]="18" aria-hidden="true"></lucide-icon>
+      </button>
+    </div>
+
+    <div *ngIf="nearLimit" class="progressWrapper">
+      <div
+        class="progress"
+        [style.width.%]="pct"
+        role="progressbar"
+        [ariaValueNow]="pct"
+        [ariaValueMin]="0"
+        [ariaValueMax]="100"
+      ></div>
+    </div>
+
+    <p class="hint">
+      Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line
+    </p>
+  </form>
+</footer>
