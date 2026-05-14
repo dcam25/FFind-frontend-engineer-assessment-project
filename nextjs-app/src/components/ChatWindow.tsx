@@ -40,11 +40,11 @@ export default function ChatWindow() {
         e.preventDefault();
         const input = document.querySelector('textarea') || document.querySelector('input');
         input?.focus();
-        toast.info('Input focused' , { duration: 1000 });
+        toast.info('Input focused', { duration: 1000 });
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.remove('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // 2. Persist Sessions
@@ -63,16 +63,16 @@ export default function ChatWindow() {
   const messages = activeSession?.messages || [];
 
   const updateActiveSession = (newMessages: ChatMessage[]) => {
-    setSessions(prev => prev.map(session => 
-      session.id === activeSessionId 
-        ? { 
-            ...session, 
-            messages: newMessages, 
-            updatedAt: Date.now(),
-            title: session.title === 'New Chat' && newMessages.length > 0 
-              ? newMessages[0].content.slice(0, 30) + (newMessages[0].content.length > 30 ? '...' : '')
-              : session.title
-          } 
+    setSessions(prev => prev.map(session =>
+      session.id === activeSessionId
+        ? {
+          ...session,
+          messages: newMessages,
+          updatedAt: Date.now(),
+          title: session.title === 'New Chat' && newMessages.length > 0
+            ? newMessages[0].content.slice(0, 30) + (newMessages[0].content.length > 30 ? '...' : '')
+            : session.title
+        }
         : session
     ));
   };
@@ -126,7 +126,7 @@ export default function ChatWindow() {
         if (done) break;
 
         accumulated += decoder.decode(value, { stream: true });
-        
+
         let displayText = accumulated;
         try {
           const parsed = JSON.parse(accumulated);
@@ -230,7 +230,7 @@ export default function ChatWindow() {
 
   return (
     <div className={styles.container}>
-      <Sidebar 
+      <Sidebar
         sessions={sessions}
         activeId={activeSessionId || ''}
         onSelect={setActiveSessionId}
@@ -239,18 +239,18 @@ export default function ChatWindow() {
         onRename={handleRenameSession}
         onJump={handleJump}
       />
-      
+
       <div className={styles.wrapper}>
         <header className={styles.header}>
           <div className={styles.headerLeft}>
             <div className={styles.logo}>
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="14" fill="url(#g1)"/>
-                <path d="M8 14l4 4 8-8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="14" cy="14" r="14" fill="url(#g1)" />
+                <path d="M8 14l4 4 8-8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 <defs>
                   <linearGradient id="g1" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#7c6af7"/>
-                    <stop offset="1" stopColor="#a78bfa"/>
+                    <stop stopColor="#7c6af7" />
+                    <stop offset="1" stopColor="#a78bfa" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -267,8 +267,8 @@ export default function ChatWindow() {
             </span>
             {messages.length > 0 && (
               <button className={styles.clearBtn} onClick={handleClearChat} title="Clear Chat">
-                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14H6L5 6" /><path d="M10 11v6m4-6v6" /><path d="M9 6V4h6v2" />
                 </svg>
                 Clear
               </button>
